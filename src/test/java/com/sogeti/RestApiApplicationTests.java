@@ -1,7 +1,5 @@
 package com.sogeti;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
@@ -10,8 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * This is the hub for testing the API due to requirements all tests
@@ -26,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 class RestApiApplicationTests {
+	
     @Autowired
     MockMvc mockMvc;
     
@@ -46,7 +43,6 @@ class RestApiApplicationTests {
 	
 	//List all orders by customer endpoint
 	@Test
-
 	void testListOrdersByCustomerEndpoint() throws Exception {
 		 mockMvc.perform(MockMvcRequestBuilders
 		            .get("/orders")
