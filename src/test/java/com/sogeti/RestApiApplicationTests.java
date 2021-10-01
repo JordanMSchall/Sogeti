@@ -50,15 +50,25 @@ class RestApiApplicationTests {
 	//test customer load
 	@Test
 	void testLoadCustomers() throws Exception {
-		customers = JSONParserImpl.getInstance().parseCustomers();
+		customers = JSONParserImpl.getInstance().mapJSONCustomers();
 		assertNotEquals(customers, null);
+	}
+	
+	//Create orders endpoint
+	@Test
+	void testOrdersEndpoint() throws Exception {
+		 mockMvc.perform(MockMvcRequestBuilders
+		            .get("/orders")
+		            .contentType(MediaType.APPLICATION_JSON))
+		            .andExpect(status().isOk());
+		            //.andExpect(jsonPath("$[2].name", is("Jane Doe")));
 	}
 	
 	//Create order endpoint
 	@Test
 	void testOrderEndpoint() throws Exception {
 		 mockMvc.perform(MockMvcRequestBuilders
-		            .get("/order")
+		            .get("/orders/1")
 		            .contentType(MediaType.APPLICATION_JSON))
 		            .andExpect(status().isOk());
 		            //.andExpect(jsonPath("$[2].name", is("Jane Doe")));
@@ -78,7 +88,7 @@ class RestApiApplicationTests {
 	@Test
 	void testUpdateOrderEndpoint() throws Exception {
 		 mockMvc.perform(MockMvcRequestBuilders
-		            .put("/order")
+		            .put("/orders/1")
 		            .contentType(MediaType.APPLICATION_JSON))
 		            .andExpect(status().isOk());
 	}
@@ -87,7 +97,7 @@ class RestApiApplicationTests {
 	@Test
 	void testCancelOrderEndpoint() throws Exception {
 		 mockMvc.perform(MockMvcRequestBuilders
-		            .post("/order")
+		            .delete("/orders/1")
 		            .contentType(MediaType.APPLICATION_JSON))
 		            .andExpect(status().isOk());
 	}

@@ -26,7 +26,7 @@ public class JSONParserImpl {
 		return instance;
 	}
 
-	public List<Customer> parseCustomers() {
+	public List<Customer> mapJSONCustomers() {
 		List<Customer> customers = new ArrayList<Customer>();
 
 		try {
@@ -68,8 +68,9 @@ public class JSONParserImpl {
 		customer.setAddress(addr);
 	}
 
-	public List<Order> parseOrders() {
-		// TODO: no data to load for orders
+
+	public List<Order> mapJSONOrders() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }
