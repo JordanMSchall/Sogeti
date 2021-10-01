@@ -42,9 +42,11 @@ public class JSONParserImpl {
 
 	private void instantiateJSONCustomers(List<Customer> customers, JSONArray customerList) {
 		Iterator<JSONObject> iterator = customerList.iterator();
+		int uniqueIdIndex = 0;
 		while (iterator.hasNext()) {
 			JSONObject customerJSON = iterator.next();
 			Customer newCustomer = new Customer();
+			newCustomer.setId(Integer.toString(uniqueIdIndex));
 			newCustomer.setFirstName(customerJSON.get("firstName").toString());
 			newCustomer.setLastName(customerJSON.get("lastName").toString());
 			try {
@@ -56,6 +58,7 @@ public class JSONParserImpl {
 			}
 			setCustomerAddress(newCustomer, customerJSON);
 			customers.add(newCustomer);
+			uniqueIdIndex++;
 		}
 	}
 
