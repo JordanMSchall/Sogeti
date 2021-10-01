@@ -5,7 +5,7 @@ public class Order {
 
 	private String id;
 
-	private String customer;
+	private Customer customer;
 
 	public String getId() {
 		return id;
@@ -15,19 +15,20 @@ public class Order {
 		this.id = id;
 	}
 
-	public String getCustomer() {
+	public Customer getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(String customer) {
+	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 
 	public Order() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public Order(String id, String customer) {
+	public Order(String id, Customer customer) {
 		super();
 		this.id = id;
 		this.customer = customer;
