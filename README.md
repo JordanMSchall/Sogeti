@@ -1,6 +1,13 @@
 ### Overview
 This project is intended to provide proof of work for Sogeti Interview.
 
+
+### Final Note
+The requirements have been met this is the final commit prior to the interview.
+In order to find more what is theoretically left search the workspace for TODO's or 
+use the built in TODO's finder.
+
+
 ### Requirements to be met
 Create order endpoint
 List all orders by customer endpoint
