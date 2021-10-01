@@ -2,6 +2,7 @@ package com.sogeti.util;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -80,5 +81,12 @@ public class JSONParserImpl {
 	public List<Order> mapJSONOrders() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void saveJSONObj(JSONObject obj, String fileName) throws IOException {
+		FileWriter file = null;
+		file = new FileWriter(".\\src\\main\\resources\\data\\" + fileName);
+		file.write(obj.toJSONString());
+		file.close();
 	}
 }
