@@ -32,7 +32,7 @@ public class JSONParserImpl {
 	public List<Customer> mapJSONCustomers() {
 		List<Customer> customers = new ArrayList<Customer>();
 		try {
-			JSONArray customerJSONArray = readJSONData("//src//main//resources//data//customers.json");
+			JSONArray customerJSONArray = readJSONData(".\\src\\main\\resources\\data\\customers.json");
 			instantiateJSONCustomers(customers, customerJSONArray);
 		} catch (Exception e) {
 			System.out.printf("Error with JSONParserImpl.parseCustomers", e.getStackTrace());

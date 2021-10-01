@@ -3,6 +3,7 @@ package com.sogeti.services;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sogeti.domain.Customer;
@@ -17,7 +18,7 @@ public class CustomersController {
 	  }
 	  
 	  @GetMapping("/customers/{id}/orders")
-	  List<Customer> getCustomerOrders() {
+	  List<Customer> getCustomerOrders(@PathVariable Integer id) {
 		  //TODO: Implement Persistence
 	    return null;
 	  }
