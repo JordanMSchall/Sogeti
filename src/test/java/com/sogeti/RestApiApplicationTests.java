@@ -1,13 +1,21 @@
 package com.sogeti;
 
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import com.sogeti.domain.Customer;
+import com.sogeti.util.JSONParserImpl;
 
 /**
  * This is the hub for testing the API due to requirements all tests
@@ -18,17 +26,32 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
  *
  */
 
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 
-
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
 class RestApiApplicationTests {
 	
     @Autowired
     MockMvc mockMvc;
     
+    List<Customer> customers; 
+    
 	//Initialize spring tests
 	@Test
 	void contextLoads() {
+	}
+	
+//	@BeforeAll
+//	void loadCustomers() {
+//		customers = JSONParserImpl.parseCustomers();
+//	}
+//	
+	//test customer load
+	@Test
+	void testLoadCustomers() throws Exception {
+		customers = JSONParserImpl.getInstance().parseCustomers();
+		assertNotEquals(customers, null);
 	}
 	
 	//Create order endpoint
