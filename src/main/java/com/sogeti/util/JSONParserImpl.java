@@ -1,6 +1,8 @@
 package com.sogeti.util;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +14,7 @@ import com.sogeti.domain.Order;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class JSONParserImpl {
 
@@ -28,38 +31,36 @@ public class JSONParserImpl {
 
 	public List<Customer> mapJSONCustomers() {
 		List<Customer> customers = new ArrayList<Customer>();
-
 		try {
-			Object obj = parser.parse(new FileReader(".\\src\\main\\resources\\data\\customers.json"));
-			JSONArray customerList = (JSONArray) obj;
-
-			customerList.toString();
-			Iterator<JSONObject> iterator = customerList.iterator();
-
-			while (iterator.hasNext()) {
-				JSONObject customerObj = iterator.next();
-				Customer newCustomer = new Customer();
-				newCustomer.setFirstName(customerObj.get("firstName").toString());
-				newCustomer.setLastName(customerObj.get("lastName").toString());
-				try {
-				newCustomer.setAge(Integer.parseInt(customerObj.get("age").toString()));
-				newCustomer.setPhoneNumber(Integer.parseInt(customerObj.get("phoneNumber").toString()));
-				} catch(NumberFormatException e) {
-					// TODO: implement error handling
-					// do nothing
-				}
-				setAddress(newCustomer, customerObj);
-				customers.add(newCustomer);
-			}
-
+			JSONArray customerJSONArray = readJSONData("//src//main//resources//data//customers.json");
+			instantiateJSONCustomers(customers, customerJSONArray);
 		} catch (Exception e) {
 			System.out.printf("Error with JSONParserImpl.parseCustomers", e.getStackTrace());
 		}
 		return customers;
 	}
 
-	private void setAddress(Customer customer, JSONObject customerObj) {
-		JSONObject addressObj = (JSONObject) customerObj.get("address");
+	private void instantiateJSONCustomers(List<Customer> customers, JSONArray customerList) {
+		Iterator<JSONObject> iterator = customerList.iterator();
+		while (iterator.hasNext()) {
+			JSONObject customerJSON = iterator.next();
+			Customer newCustomer = new Customer();
+			newCustomer.setFirstName(customerJSON.get("firstName").toString());
+			newCustomer.setLastName(customerJSON.get("lastName").toString());
+			try {
+				newCustomer.setAge(Integer.parseInt(customerJSON.get("age").toString()));
+				newCustomer.setPhoneNumber(Integer.parseInt(customerJSON.get("phoneNumber").toString()));
+			} catch (NumberFormatException e) {
+				// TODO: implement error handling
+				// do nothing
+			}
+			setCustomerAddress(newCustomer, customerJSON);
+			customers.add(newCustomer);
+		}
+	}
+
+	private void setCustomerAddress(Customer customer, JSONObject customerJSON) {
+		JSONObject addressObj = (JSONObject) customerJSON.get("address");
 		Address addr = new Address();
 		addr.setStreetAddress(addressObj.get("streetAddress").toString());
 		addr.setCity(addressObj.get("city").toString());
@@ -68,6 +69,10 @@ public class JSONParserImpl {
 		customer.setAddress(addr);
 	}
 
+	public JSONArray readJSONData(String filePath) throws FileNotFoundException, IOException, ParseException {
+		Object obj = parser.parse(new FileReader(filePath));
+		return (JSONArray) obj;
+	}
 
 	public List<Order> mapJSONOrders() {
 		// TODO Auto-generated method stub
