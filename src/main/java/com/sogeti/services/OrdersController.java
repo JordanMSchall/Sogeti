@@ -21,8 +21,8 @@ public class OrdersController {
 		return JSONParserImpl.getInstance().mapJSONOrders();
 	}
 
-	@PostMapping("/orders")
-	Order newOrder(@RequestBody Order newOrder) {
+	@PostMapping("/orders{customerId}")
+	Order newOrder(@RequestBody Order newOrder, @PathVariable Integer customerId) {
 		// TODO: implement persistence
 		return newOrder;
 	}
